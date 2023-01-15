@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build_and_push
     env:
-      DB_USER: postgres
+      DB_USER: flask_app
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
       DB_NAME: ${{ secrets.DB_NAME }}
     steps:
@@ -36,15 +36,16 @@ jobs:
           source: "deploy/docker-compose.yaml,deploy/docker_config.py"
           target: "flask-app_ci"
           strip_components: 1
-#      - name: run docker-compose
-#        uses: appleboy/ssh-action@master
-#        with:
-#          host: ${{ secrets.HOST }}
-#          username: ${{ secrets.SSH_USERNAME }}
-#          password: ${{ secrets.SSH_PASSWORD }}
-#          script: |
-#            cd flask-app
-#            echo ${{ secrets.SSH_PASSWORD }} | sudo -S docker-compose up -d
+      - name: run docker-compose
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: 8085:80
+          script: |
+            cd flask-app
+            echo ${{ secrets.SSH_PASSWORD }} | sudo -S docker-compose up -d
 
 
 
