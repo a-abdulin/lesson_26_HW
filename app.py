@@ -23,6 +23,7 @@ class User(db.Model):
 def index():
     users = User.query.all()
     response = {
+        "confirmation": "it works",
         "total": len(users),
         "users": [{"username": user.username} for user in users],
     }
