@@ -42,11 +42,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
-          port: 8085:80
+          port: 8085
           script: |
-            cd flask-app
+            cd flask-app_ci
             echo ${{ secrets.SSH_PASSWORD }} | sudo -S docker-compose up -d
-
-
-
-
