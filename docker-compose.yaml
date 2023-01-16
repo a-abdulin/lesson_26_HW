@@ -1,4 +1,4 @@
-version: '3.9'
+version: '3.8'
 
 services:
   api:
@@ -33,7 +33,7 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U flask_app -d POSTGRES_DB"]
+      test: ["CMD-SHELL", "pg_isready -U flask_app -d flask_app"]
       interval: 5s
       timeout: 5s
       retries: 5
